@@ -1,155 +1,887 @@
-<!DOCTYPE html>	
-<html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
-<title>Android Store</title>
-<link rel="stylesheet" href="main.css">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover minimal-ui standalone">
-<link rel="manifest" href="manifest.json">
-<meta name="description" content="Kasar iOS Is A Tweaked AppStore For iOS Devices">
-<link rel="apple-touch-startup-image" href="https://kasar.store/img/LaunchImage.png">
-<link rel='icon' href='https://h.top4top.io/p_2324zmxfv1.png' type='image/x-icon'/ >
-<link rel="apple-touch-icon" href="https://h.top4top.io/p_2324zmxfv1.png"/>
-<meta name="apple-mobile-web-app-capable" content="yes">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر Android - تطبيقات البلس</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        :root {
+            --primary: #5E35B1; /* بنفسجي غامق */
+            --primary-light: #7E57C2; /* بنفسجي فاتح */
+            --accent: #2196F3; /* أزرق فاتح */
+            --accent-dark: #1976D2; /* أزرق غامق */
+            --secondary: #FF9800; /* برتقالي */
+            --dark: #1a1a2e;
+            --light: #f5f5f5;
+            --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            --gradient: linear-gradient(135deg, var(--primary), var(--accent));
+            
+            /* ألوان الوضع النهاري */
+            --light-bg: #f0f2f5;
+            --light-card: #ffffff;
+            --light-text: #333333;
+            --light-border: #e0e0e0;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a237e, #311b92);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding-bottom: 70px;
+            position: relative;
+        }
+        
+        body.light-mode {
+            background: var(--light-bg);
+            color: var(--light-text);
+        }
+        
+        .top-bar {
+            background: var(--gradient);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        body.light-mode .top-bar {
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+        }
+        
+        .top-bar a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .top-bar h1 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            flex: 1;
+            text-align: center;
+        }
+        
+        .search-container {
+            padding: 75px 15px 15px;
+        }
+        
+        .search-bar {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 30px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            box-shadow: var(--card-shadow);
+            backdrop-filter: blur(5px);
+        }
+        
+        body.light-mode .search-bar {
+            background: rgba(33, 150, 243, 0.1);
+        }
+        
+        .search-bar input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 8px;
+            font-size: 1rem;
+            background: transparent;
+            color: white;
+        }
+        
+        body.light-mode .search-bar input {
+            color: var(--light-text);
+        }
+        
+        .search-bar input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        body.light-mode .search-bar input::placeholder {
+            color: #888;
+        }
+        
+        .search-bar i {
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+        
+        .categories {
+            display: flex;
+            gap: 10px;
+            padding: 15px 0;
+            overflow-x: auto;
+            margin-bottom: 10px;
+        }
+        
+        .category {
+            background: rgba(94, 53, 177, 0.3);
+            border-radius: 50px;
+            padding: 8px 20px;
+            white-space: nowrap;
+            box-shadow: var(--card-shadow);
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            color: white;
+            border: 1px solid rgba(126, 87, 194, 0.4);
+        }
+        
+        body.light-mode .category {
+            background: rgba(33, 150, 243, 0.1);
+            color: var(--light-text);
+            border: 1px solid rgba(33, 150, 243, 0.2);
+        }
+        
+        .category.active, .category:hover {
+            background: var(--gradient);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        body.light-mode .category.active, 
+        body.light-mode .category:hover {
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: white;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            margin: 20px 15px 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--primary-light);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+        }
+        
+        body.light-mode .section-title {
+            border-bottom: 2px solid var(--accent);
+            color: var(--accent-dark);
+        }
+        
+        .section-title i {
+            margin-left: 10px;
+            color: var(--primary-light);
+        }
+        
+        body.light-mode .section-title i {
+            color: var(--accent);
+        }
+        
+        .apps-container {
+            padding: 0 15px 20px;
+        }
+        
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px;
+        }
+        
+        .app-card {
+            background: rgba(33, 33, 73, 0.7);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s;
+            text-align: center;
+            border: 1px solid rgba(126, 87, 194, 0.3);
+            position: relative;
+        }
+        
+        body.light-mode .app-card {
+            background: var(--light-card);
+            border: 1px solid var(--light-border);
+        }
+        
+        .app-card:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+            border-color: var(--primary-light);
+        }
+        
+        body.light-mode .app-card:hover {
+            border-color: var(--accent);
+        }
+        
+        .app-icon {
+            width: 100%;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(30, 30, 70, 0.7), rgba(50, 50, 100, 0.7));
+            padding: 15px;
+        }
+        
+        body.light-mode .app-icon {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+        }
+        
+        .app-icon img {
+            width: 70px;
+            height: 70px;
+            border-radius: 18px;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        body.light-mode .app-icon img {
+            border: 2px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .app-info {
+            padding: 12px 10px;
+        }
+        
+        .app-info h3 {
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height: 1.5em;
+            color: white;
+        }
+        
+        body.light-mode .app-info h3 {
+            color: var(--light-text);
+        }
+        
+        .app-info p {
+            font-size: 0.75rem;
+            color: #bbb;
+            margin-bottom: 10px;
+            height: 1.5em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        body.light-mode .app-info p {
+            color: #666;
+        }
+        
+        .processor-tag {
+            background: rgba(33, 150, 243, 0.2);
+            color: var(--accent);
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 5px;
+        }
+        
+        body.light-mode .processor-tag {
+            background: rgba(33, 150, 243, 0.1);
+        }
+        
+        .app-type {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 152, 0, 0.2);
+            color: var(--secondary);
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            display: inline-block;
+            backdrop-filter: blur(5px);
+        }
+        
+        body.light-mode .app-type {
+            background: rgba(255, 152, 0, 0.15);
+        }
+        
+        .nav {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            background: rgba(30, 30, 60, 0.95);
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            backdrop-filter: blur(8px);
+            border-top: 1px solid rgba(126, 87, 194, 0.3);
+        }
+        
+        body.light-mode .nav {
+            background: rgba(255, 255, 255, 0.95);
+            border-top: 1px solid rgba(33, 150, 243, 0.2);
+        }
+        
+        .nav a {
+            color: #bbb;
+            text-decoration: none;
+            font-size: 1.4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: color 0.3s;
+            position: relative;
+            width: 70px;
+        }
+        
+        body.light-mode .nav a {
+            color: #666;
+        }
+        
+        .nav a span {
+            font-size: 0.7rem;
+            margin-top: 5px;
+            font-weight: 500;
+        }
+        
+        .nav a:hover, .nav a.active {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 80px;
+            left: 15px;
+            background: rgba(33, 33, 73, 0.9);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 99;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(126, 87, 194, 0.3);
+        }
+        
+        body.light-mode .dark-mode-toggle {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(33, 150, 243, 0.2);
+        }
+        
+        .dark-mode-toggle:hover {
+            background: var(--gradient);
+            transform: rotate(15deg);
+        }
+        
+        .dark-mode-toggle i {
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+        
+        .app-count {
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            position: absolute;
+            top: 0;
+            right: 5px;
+        }
+        
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            padding: 0 15px 15px;
+        }
+        
+        .filter-btn {
+            background: rgba(33, 150, 243, 0.2);
+            color: var(--accent);
+            border: none;
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(126, 87, 194, 0.3);
+        }
+        
+        body.light-mode .filter-btn {
+            background: rgba(33, 150, 243, 0.1);
+            color: var(--accent-dark);
+        }
+        
+        .filter-btn:hover {
+            background: var(--gradient);
+            color: white;
+        }
+        
+        body.light-mode .filter-btn:hover {
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+        }
+        
+        @media (max-width: 600px) {
+            .apps-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .app-card {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .app-link {
+            text-decoration: none;
+        }
+        
+        .header-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: radial-gradient(ellipse at center, rgba(94, 53, 177, 0.4) 0%, rgba(33, 33, 73, 0) 70%);
+            z-index: -1;
+        }
+        
+        body.light-mode .header-glow {
+            background: radial-gradient(ellipse at center, rgba(33, 150, 243, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
+        }
+        
+        .footer-glow {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: radial-gradient(ellipse at center, rgba(33, 150, 243, 0.2) 0%, rgba(33, 33, 73, 0) 70%);
+            z-index: -1;
+        }
+        
+        body.light-mode .footer-glow {
+            background: radial-gradient(ellipse at center, rgba(33, 150, 243, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+        }
+    </style>
 </head>
-<div class="name">
-<a href="Sections.html" class="tab">chevron_left</a>
-<h1>تطبيقات البلس</h1>
-</div>
-<br>
-<br>
-<br>
-<center>
+<body>
+    <div class="header-glow"></div>
+    <div class="footer-glow"></div>
+    
+    <div class="dark-mode-toggle" id="darkModeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
 
+    <div class="top-bar">
+        <a href="Sections.html">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+        <h1>تطبيقات البلس</h1>
+    </div>
 
-<a href="https://dlll.apkm.app/facegold/1.0/Facebook_Gold_v1.0_armeabi-v7a.apk">
-<div class="apps">
-<img src="https://imgg.io/images/2025/01/24/bf429db8313f9f19dda0feaa6f7e0642.jpg">
-<h1> فيسبوك الذهبي armeabi7 معالج </h1>
-</div>
-</a>
-<a href="https://dlll.apkm.app/facegold/1.0/Facebook_Gold_v1.0_arm64-v8a.apk">
-<div class="apps">
-<img src="https://imgg.io/images/2025/01/24/bf429db8313f9f19dda0feaa6f7e0642.jpg">
-<h1> فيسبوك الذهبي arm64 معالج </h1>
-</div>
-</a>
-<a href="https://dlll.apkm.app/telegold/4.1.0/Telegram_Plus_v4.1.0.apk">
-<div class="apps">
-<img src="https://imgg.io/images/2025/01/24/a06d2670c440b6d942c6d918f59b9937.png">
-<h1> تلجرام بلس </h1>
-</div>
-</a>
-<a href="https://dlll.apkm.app/telegold/4.1.0/Telegram_Gold_v4.1.0.apk">
-<div class="apps">
-<img src="https://imgg.io/images/2025/01/24/0adaebdd8d6fc8742970a94cef008825.png">
-<h1> تلجرام الذهبي </h1>
-</div>
-</a>
-<a href="https://download2303.mediafire.com/i2qx6uuoye6g1L6NvnAIYah4KKRf__tkxIhLFlLEyMV-XQK72WKbkZcVdw2nFjdQNnu1dRiTzAMqs_URIsdNDmICoWhEsyqzQRaKF-wkChMslU2jG_jqQx_tBudrO9l3BL-YAhuJyxTyEZFHi_Ms9FtwJ8mnyDf5hWf7eQAG1Lc/5czgw92w2yc6glp/%40Esam-Apk+Netfilx.apk">
-<div class="apps">
-<img src="https://imgg.io/images/2025/01/24/6f60870f760351e579ea8083e9697912.webp">
-<h1> Netflix premium </h1>
-</div>
-</a>
-<a href="https://dlll.apkm.app/snapgold/3.00/GoldSC_V3.00_ByAbu3rab.apk">
-<div class="apps">
-<img src="https://l.top4top.io/p_26449crsb0.png">
-<h1>Snap++ يجب حذف الاصلي</h1>
-</div>
-</a>
-<a href="https://dlll.apkm.app/instagold/9.60/InstaGold_Plus_v9.60.apk">
-<div class="apps">
-<img src="https://imgg.io/images/2025/01/24/57824b44e2f0c9af064190cd80798f5b.png">
-<h1>Insta Gold اساسي</h1>
-</div>
-</a>
-<a href="https://dlll.apkm.app/instagold/9.60/InstaGold_v9.60.apk">
-<div class="apps">
-<img src="https://imgg.io/images/2025/01/24/57824b44e2f0c9af064190cd80798f5b.png">
-<h1>Insta Plus مكرر</h1>
-</div>
-</a>
-<a href="https://dlll.apkm.app/btinsta/9.50/BTInsta_v9.50.apk">
-<div class="apps">
-<img src="https://imgg.io/images/2025/01/24/70b745aa370e67f243b8ba152f146aba.png">
-<h1> BTInsta </h1>
-</div>
-</a>
-<a href="https://dlll.apkm.app/twittergold/2.95/X_Plus_v2.95.apk">
-<div class="apps">
-<img src="https://e.top4top.io/p_23244onpn1.png">
-<h1>Twitter Plus اساسي</h1>
-</div>
-</a>
-<a href="https://dlll.apkm.app/twittergold/2.95/X_Gold_v2.95.apk">
-<div class="apps">
-<img src="https://e.top4top.io/p_23244onpn1.png">
-<h1>Twieetr Gold2 مكرر</h1>
-</div>
-</a>
-<a href="https://dlll.apkm.app/TikTok/3.70/TikTok_Gold_v3.70.apk">
-<div class="apps">
-<img src="https://l.top4top.io/p_2324rybqd1.png">
-<h1>TikTok Plus اساسي</h1>
-</div>
-</a>
-<a href="https://dlll.apkm.app/TikTok/plugin/TikTok-Plugin_2.2.0.apk">
-<div class="apps">
-<img src="https://l.top4top.io/p_2324rybqd1.png">
-<h1> البرنامج المساعد tiktok اساسي </h1>
-</div>
-</a>
-<a href="https://dlll.apkm.app/TikTok/3.70/TikTok_Gold_Asia_v3.70.apk">
-<div class="apps">
-<img src="https://l.top4top.io/p_2324rybqd1.png">
-<h1>TikTok Plus مكرر</h1>
-</div>
-</a>
-<a href="https://dlll.apkm.app/TikTok/plugin/TikTok-Asia-Plugin_2.2.0.apk">
-<div class="apps">
-<img src="https://l.top4top.io/p_2324rybqd1.png">
-<h1> البرنامج المساعد tiktok مكرر </h1>
-</div>
-</a>
-<a href="https://dlll.apkm.app/wagold/11.65/WA_Abo3rab_v11.65.apk">
-<div class="apps">
-<img src="https://imgg.io/images/2025/01/24/a103e625ab0f86bcadbd869bacf1560b.webp">
-<h1>WhatsApp Plus </h1>
-</div>
-</a>
-<a href="https://dlll.apkm.app/wagold/11.65/WA5_Abo3rab_v11.65.apk">
-<div class="apps">
-<img src="https://g.top4top.io/p_2331rfeqd1.png">
-<h1>WhatsApp Black مكرر</h1>
-</div>
-</a>
-<a href="https://dlll.apkm.app/wagold/11.65/WA4_Abo3rab_v11.65.apk">
-<div class="apps">
-<img src="https://j.top4top.io/p_2331tq42v1.png">
-<h1>WhatsApp Blue مكرر</h1>
-</div>
-</a>
-<a href="https://dlll.apkm.app/wagold/11.65/WA3_Abo3rab_v11.65.apk">
-<div class="apps">
-<img src="https://f.top4top.io/p_2331o04c51.png">
-<h1>WhatsApp Red مكرر</h1>
-</div>
-</a>
-<a href="https://dlll.apkm.app/wagold/11.65/WA2_Abo3rab_v11.65.apk">
-<div class="apps">
-<img src="https://b.top4top.io/p_2331xr33t1.png">
-<h1>WhatsApp Gold مكرر</h1>
-</div>
-</a>
-</center>
-<br>
-<br>
-<br>
-<br>
-<br>
-<div class="nav">	
-<a href="Sections.html" class="tab">rectangle_stack_fill</a>
-<a href="index.html" class="tab">house_fill</a>
-<a href="Search.html" class="tab">search_fill</a>
-</div>
+    <div class="search-container">
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="ابحث عن تطبيق...">
+        </div>
+        
+        <div class="filter-bar">
+            <button class="filter-btn">
+                <i class="fas fa-filter"></i>
+                الفلتر
+            </button>
+            <button class="filter-btn">
+                <i class="fas fa-sort-amount-down"></i>
+                الترتيب
+            </button>
+        </div>
+        
+        <div class="categories">
+            <div class="category active">الكل</div>
+            <div class="category">وسائل التواصل</div>
+            <div class="category">الفيديو</div>
+            <div class="category">المراسلة</div>
+            <div class="category">الترفيه</div>
+        </div>
+    </div>
+
+    <div class="section-title">
+        <i class="fas fa-crown"></i>
+        تطبيقات البلس المميزة
+    </div>
+
+    <div class="apps-container">
+        <div class="apps-grid">
+            <!-- Facebook Gold -->
+            <a href="https://dlll.apkm.app/facegold/1.0/Facebook_Gold_v1.0_armeabi-v7a.apk" class="app-link">
+                <div class="app-card">
+                    <div class="app-type">أساسي</div>
+                    <div class="app-icon">
+                        <img src="https://imgg.io/images/2025/01/24/bf429db8313f9f19dda0feaa6f7e0642.jpg" alt="Facebook Gold">
+                    </div>
+                    <div class="app-info">
+                        <h3>فيسبوك الذهبي</h3>
+                        <p>نسخة محسنة من فيسبوك</p>
+                        <span class="processor-tag">armeabi7</span>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="https://dlll.apkm.app/facegold/1.0/Facebook_Gold_v1.0_arm64-v8a.apk" class="app-link">
+                <div class="app-card">
+                    <div class="app-type">أساسي</div>
+                    <div class="app-icon">
+                        <img src="https://imgg.io/images/2025/01/24/bf429db8313f9f19dda0feaa6f7e0642.jpg" alt="Facebook Gold">
+                    </div>
+                    <div class="app-info">
+                        <h3>فيسبوك الذهبي</h3>
+                        <p>نسخة محسنة من فيسبوك</p>
+                        <span class="processor-tag">arm64</span>
+                    </div>
+                </div>
+            </a>
+            
+            <!-- Telegram -->
+            <a href="https://dlll.apkm.app/telegold/4.1.0/Telegram_Plus_v4.1.0.apk" class="app-link">
+                <div class="app-card">
+                    <div class="app-type">أساسي</div>
+                    <div class="app-icon">
+                        <img src="https://imgg.io/images/2025/01/24/a06d2670c440b6d942c6d918f59b9937.png" alt="Telegram Plus">
+                    </div>
+                    <div class="app-info">
+                        <h3>تلجرام بلس</h3>
+                        <p>مزايا إضافية للتلجرام</p>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="https://dlll.apkm.app/telegold/4.1.0/Telegram_Gold_v4.1.0.apk" class="app-link">
+                <div class="app-card">
+                    <div class="app-type">مكرر</div>
+                    <div class="app-icon">
+                        <img src="https://imgg.io/images/2025/01/24/0adaebdd8d6fc8742970a94cef008825.png" alt="Telegram Gold">
+                    </div>
+                    <div class="app-info">
+                        <h3>تلجرام الذهبي</h3>
+                        <p>نسخة ذهبية من التلجرام</p>
+                    </div>
+                </div>
+            </a>
+            
+            <!-- Netflix -->
+            <a href="https://download2303.mediafire.com/i2qx6uuoye6g1L6NvnAIYah4KKRf__tkxIhLFlLEyMV-XQK72WKbkZcVdw2nFjdQNnu1dRiTzAMqs_URIsdNDmICoWhEsyqzQRaKF-wkChMslU2jG_jqQx_tBudrO9l3BL-YAhuJyxTyEZFHi_Ms9FtwJ8mnyDf5hWf7eQAG1Lc/5czgw92w2yc6glp/%40Esam-Apk+Netfilx.apk" class="app-link">
+                <div class="app-card">
+                    <div class="app-type">أساسي</div>
+                    <div class="app-icon">
+                        <img src="https://imgg.io/images/2025/01/24/6f60870f760351e579ea8083e9697912.webp" alt="Netflix Premium">
+                    </div>
+                    <div class="app-info">
+                        <h3>Netflix Premium</h3>
+                        <p>نسخة مميزة من نتفليكس</p>
+                    </div>
+                </div>
+            </a>
+            
+            <!-- Snapchat -->
+            <a href="https://dlll.apkm.app/snapgold/3.00/GoldSC_V3.00_ByAbu3rab.apk" class="app-link">
+                <div class="app-card">
+                    <div class="app-type">أساسي</div>
+                    <div class="app-icon">
+                        <img src="https://l.top4top.io/p_26449crsb0.png" alt="Snap++">
+                    </div>
+                    <div class="app-info">
+                        <h3>Snap++</h3>
+                        <p>يجب حذف الاصلي</p>
+                    </div>
+                </div>
+            </a>
+            
+            <!-- Instagram -->
+            <a href="https://dlll.apkm.app/instagold/9.60/InstaGold_Plus_v9.60.apk" class="app-link">
+                <div class="app-card">
+                    <div class="app-type">أساسي</div>
+                    <div class="app-icon">
+                        <img src="https://imgg.io/images/2025/01/24/57824b44e2f0c9af064190cd80798f5b.png" alt="Insta Gold">
+                    </div>
+                    <div class="app-info">
+                        <h3>Insta Gold</h3>
+                        <p>نسخة ذهبية من انستجرام</p>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="https://dlll.apkm.app/instagold/9.60/InstaGold_v9.60.apk" class="app-link">
+                <div class="app-card">
+                    <div class="app-type">مكرر</div>
+                    <div class="app-icon">
+                        <img src="https://imgg.io/images/2025/01/24/57824b44e2f0c9af064190cd80798f5b.png" alt="Insta Plus">
+                    </div>
+                    <div class="app-info">
+                        <h3>Insta Plus</h3>
+                        <p>نسخة مكررة من انستجرام</p>
+                    </div>
+                </div>
+            </a>
+            
+            <!-- BTInsta -->
+            <a href="https://dlll.apkm.app/btinsta/9.50/BTInsta_v9.50.apk" class="app-link">
+                <div class="app-card">
+                    <div class="app-type">أساسي</div>
+                    <div class="app-icon">
+                        <img src="https://imgg.io/images/2025/01/24/70b745aa370e67f243b8ba152f146aba.png" alt="BTInsta">
+                    </div>
+                    <div class="app-info">
+                        <h3>BTInsta</h3>
+                        <p>نسخة متقدمة من انستجرام</p>
+                    </div>
+                </div>
+            </a>
+            
+            <!-- Twitter -->
+            <a href="https://dlll.apkm.app/twittergold/2.95/X_Plus_v2.95.apk" class="app-link">
+                <div class="app-card">
+                    <div class="app-type">أساسي</div>
+                    <div class="app-icon">
+                        <img src="https://e.top4top.io/p_23244onpn1.png" alt="Twitter Plus">
+                    </div>
+                    <div class="app-info">
+                        <h3>Twitter Plus</h3>
+                        <p>نسخة محسنة من تويتر</p>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="https://dlll.apkm.app/twittergold/2.95/X_Gold_v2.95.apk" class="app-link">
+                <div class="app-card">
+                    <div class="app-type">مكرر</div>
+                    <div class="app-icon">
+                        <img src="https://e.top4top.io/p_23244onpn1.png" alt="Twieetr Gold2">
+                    </div>
+                    <div class="app-info">
+                        <h3>Twieetr Gold2</h3>
+                        <p>نسخة مكررة من تويتر</p>
+                    </div>
+                </div>
+            </a>
+            
+            <!-- TikTok -->
+            <a href="https://dlll.apkm.app/TikTok/3.70/TikTok_Gold_v3.70.apk" class="app-link">
+                <div class="app-card">
+                    <div class="app-type">أساسي</div>
+                    <div class="app-icon">
+                        <img src="https://l.top4top.io/p_2324rybqd1.png" alt="TikTok Plus">
+                    </div>
+                    <div class="app-info">
+                        <h3>TikTok Plus</h3>
+                        <p>نسخة محسنة من تيك توك</p>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="https://dlll.apkm.app/TikTok/plugin/TikTok-Plugin_2.2.0.apk" class="app-link">
+                <div class="app-card">
+                    <div class="app-type">أساسي</div>
+                    <div class="app-icon">
+                        <img src="https://l.top4top.io/p_2324rybqd1.png" alt="TikTok Plugin">
+                    </div>
+                    <div class="app-info">
+                        <h3>البرنامج المساعد</h3>
+                        <p>إضافة لتيك توك بلس</p>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="https://dlll.apkm.app/TikTok/3.70/TikTok_Gold_Asia_v3.70.apk" class="app-link">
+                <div class="app-card">
+                    <div class="app-type">مكرر</div>
+                    <div class="app-icon">
+                        <img src="https://l.top4top.io/p_2324rybqd1.png" alt="TikTok Plus">
+                    </div>
+                    <div class="app-info">
+                        <h3>TikTok Plus</h3>
+                        <p>نسخة مكررة لتيك توك</p>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="https://dlll.apkm.app/TikTok/plugin/TikTok-Asia-Plugin_2.2.0.apk" class="app-link">
+                <div class="app-card">
+                    <div class="app-type">مكرر</div>
+                    <div class="app-icon">
+                        <img src="https://l.top4top.io/p_2324rybqd1.png" alt="TikTok Plugin">
+                    </div>
+                    <div class="app-info">
+                        <h3>البرنامج المساعد</h3>
+                        <p>إضافة لتيك توك مكرر</p>
+                    </div>
+                </div>
+            </a>
+            
+            <!-- WhatsApp -->
+            <a href="https://dlll.apkm.app/wagold/11.65/WA_Abo3rab_v11.65.apk" class="app-link">
+                <div class="app-card">
+                    <div class="app-type">أساسي</div>
+                    <div class="app-icon">
+                        <img src="https://imgg.io/images/2025/01/24/a103e625ab0f86bcadbd869bacf1560b.webp" alt="WhatsApp Plus">
+                    </div>
+                    <div class="app-info">
+                        <h3>WhatsApp Plus</h3>
+                        <p>نسخة محسنة من واتساب</p>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="https://dlll.apkm.app/wagold/11.65/WA5_Abo3rab_v11.65.apk" class="app-link">
+                <div class="app-card">
+                    <div class="app-type">مكرر</div>
+                    <div class="app-icon">
+                        <img src="https://g.top4top.io/p_2331rfeqd1.png" alt="WhatsApp Black">
+                    </div>
+                    <div class="app-info">
+                        <h3>WhatsApp Black</h3>
+                        <p>نسخة سوداء من واتساب</p>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="https://dlll.apkm.app/wagold/11.65/WA4_Abo3rab_v11.65.apk" class="app-link">
+                <div class="app-card">
+                    <div class="app-type">مكرر</div>
+                    <div class="app-icon">
+                        <img src="https://j.top4top.io/p_2331tq42v1.png" alt="WhatsApp Blue">
+                    </div>
+                    <div class="app-info">
+                        <h3>WhatsApp Blue</h3>
+                        <p>نسخة زرقاء من واتساب</p>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="https://dlll.apkm.app/wagold/11.65/WA3_Abo3rab_v11.65.apk" class="app-link">
+                <div class="app-card">
+                    <div class="app-type">مكرر</div>
+                    <div class="app-icon">
+                        <img src="https://f.top4top.io/p_2331o04c51.png" alt="WhatsApp Red">
+                    </div>
+                    <div class="app-info">
+                        <h3>WhatsApp Red</h3>
+                        <p>نسخة حمراء من واتساب</p>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="https://dlll.apkm.app/wagold/11.65/WA2_Abo3rab_v11.65.apk" class="app-link">
+                <div class="app-card">
+                    <div class="app-type">مكرر</div>
+                    <div class="app-icon">
+                        <img src="https://b.top4top.io/p_2331xr33t1.png" alt="WhatsApp Gold">
+                    </div>
+                    <div class="app-info">
+                        <h3>WhatsApp Gold</h3>
+                        <p>نسخة ذهبية من واتساب</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="nav">
+        <a href="Sections.html">
+            <i class="fas fa-th-large"></i>
+            <span>الأقسام</span>
+        </a>
+        <a href="index.html" class="active">
+            <i class="fas fa-home"></i>
+            <span>الرئيسية</span>
+        </a>
+        <a href="Search.html">
+            <i class="fas fa-search"></i>
+            <span>البحث</span>
+            <span class="app-count">24</span>
+        </a>
+    </div>
+
+    <script>
+        // زر وضع ليلي عائم - تم إصلاحه
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            
+            // تغيير الأيقونة
+            const icon = darkModeToggle.querySelector('i');
+            if (document.body.classList.contains('light-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+        
+        // إضافة فعالية للتصنيفات
+        const categories = document.querySelectorAll('.category');
+        categories.forEach(category => {
+            category.addEventListener('click', () => {
+                categories.forEach(c => c.classList.remove('active'));
+                category.classList.add('active');
+            });
+        });
+        
+        // بحث التطبيقات
+        const searchInput = document.querySelector('.search-bar input');
+        const appCards = document.querySelectorAll('.app-card');
+        
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            appCards.forEach(card => {
+                const appName = card.querySelector('h3').textContent.toLowerCase();
+                const appDesc = card.querySelector('p').textContent.toLowerCase();
+                
+                if (appName.includes(searchTerm) || appDesc.includes(searchTerm)) {
+                    card.parentElement.style.display = 'block';
+                } else {
+                    card.parentElement.style.display = 'none';
+                }
+            });
+        });
+        
+        // تأثيرات عند التمرير
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            
+            if (scrollPosition > 100) {
+                darkModeToggle.style.transform = 'scale(1.1)';
+            } else {
+                darkModeToggle.style.transform = 'scale(1)';
+            }
+        });
+    </script>
+</body>
 </html>
