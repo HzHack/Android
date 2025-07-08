@@ -103,6 +103,7 @@
         .nav-links {
             display: flex;
             gap: 30px;
+            transition: all 0.4s ease;
         }
         
         .nav-links a {
@@ -132,6 +133,16 @@
         
         .nav-links a:hover::after {
             width: 100%;
+        }
+        
+        .menu-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            color: var(--neon);
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 5px;
         }
         
         /* قسم البطل */
@@ -415,6 +426,7 @@
         .social-links {
             display: flex;
             gap: 15px;
+            flex-wrap: wrap;
         }
         
         .social-links a {
@@ -435,6 +447,14 @@
             color: var(--dark);
             transform: translateY(-5px);
         }
+        
+        .social-links .twitter:hover { background: #1DA1F2; }
+        .social-links .facebook:hover { background: #4267B2; }
+        .social-links .instagram:hover { background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D); }
+        .social-links .youtube:hover { background: #FF0000; }
+        .social-links .tiktok:hover { background: #000000; }
+        .social-links .snapchat:hover { background: #FFFC00; color: #000; }
+        .social-links .linkedin:hover { background: #0A66C2; }
         
         .footer-column ul {
             list-style: none;
@@ -495,6 +515,12 @@
         }
         
         /* تصميم متجاوب */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+        }
+        
         @media (max-width: 992px) {
             .hero h1 {
                 font-size: 3rem;
@@ -502,22 +528,57 @@
             
             .hero-image {
                 width: 45%;
-                opacity: 0.3;
+                opacity: 0.4;
+            }
+            
+            .app-content h3 {
+                font-size: 1.6rem;
             }
         }
         
         @media (max-width: 768px) {
-            .navbar {
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(13, 9, 41, 0.95);
                 flex-direction: column;
-                gap: 20px;
+                align-items: center;
+                padding: 20px 0;
+                gap: 15px;
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+            }
+            
+            .nav-links.active {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+            
+            .navbar {
+                flex-wrap: wrap;
+                gap: 15px;
             }
             
             .hero {
                 text-align: center;
+                padding-top: 120px;
             }
             
             .hero-content {
                 margin: 0 auto;
+                padding: 0 15px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
             }
             
             .hero-image {
@@ -526,6 +587,48 @@
             
             .apps-grid {
                 grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .feature-card {
+                padding: 30px 20px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 50px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .cta-button {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .app-icon i {
+                font-size: 5rem;
+            }
+            
+            .app-content h3 {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -540,9 +643,14 @@
             <nav class="navbar">
                 <div class="logo">
                     <i class="fas fa-rocket"></i>
-                    <span>Hz</span>
+                    <span>اندرويد بلس</span>
                 </div>
-                <div class="nav-links">
+                
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <div class="nav-links" id="navLinks">
                     <a href="#apps">تطبيقاتنا</a>
                     <a href="#features">الميزات</a>
                     <a href="#about">عنّا</a>
@@ -667,13 +775,30 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>عن Hz</h3>
+                    <h3>عن اندرويد بلس</h3>
                     <p>نحن فريق من المطورين الشغوفين نبتكر تطبيقات أندرويد خارقة تجمع بين القوة والأداء الفائق مع تصميم فريد خارج عن المألوف.</p>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://twitter.com/yourusername" class="twitter" target="_blank" title="تويتر">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://facebook.com/yourpage" class="facebook" target="_blank" title="فيسبوك">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://instagram.com/yourprofile" class="instagram" target="_blank" title="انستغرام">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://youtube.com/yourchannel" class="youtube" target="_blank" title="يوتيوب">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="https://tiktok.com/@yourusername" class="tiktok" target="_blank" title="تيك توك">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="https://snapchat.com/add/yourusername" class="snapchat" target="_blank" title="سناب شات">
+                            <i class="fab fa-snapchat-ghost"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/yourprofile" class="linkedin" target="_blank" title="لينكد إن">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
                     </div>
                 </div>
                 
@@ -704,13 +829,13 @@
                     <ul>
                         <li><i class="fas fa-map-marker-alt"></i> الرياض، المملكة العربية السعودية</li>
                         <li><i class="fas fa-phone"></i> +966 123 456 789</li>
-                        <li><i class="fas fa-envelope"></i> info@nexus-apps.com</li>
+                        <li><i class="fas fa-envelope"></i> info@android-plus.com</li>
                     </ul>
                 </div>
             </div>
             
             <div class="copyright">
-                <p>جميع الحقوق محفوظة © 2025 Hz Bahkali. تصميم وتطوير بكل فخر.</p>
+                <p>جميع الحقوق محفوظة © 2025 اندرويد بلس. تصميم وتطوير بكل فخر.</p>
             </div>
         </div>
     </footer>
@@ -769,6 +894,33 @@
             window.addEventListener('scroll', animateOnScroll);
             // تشغيل مرة أولى لتحميل الصفحة
             animateOnScroll();
+            
+            // قائمة الجوال القابلة للطي
+            const menuToggle = document.getElementById('menuToggle');
+            const navLinks = document.getElementById('navLinks');
+            
+            menuToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                const icon = menuToggle.querySelector('i');
+                if (navLinks.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+            
+            // إغلاق القائمة عند النقر على رابط
+            const navItems = document.querySelectorAll('.nav-links a');
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    navLinks.classList.remove('active');
+                    const icon = menuToggle.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                });
+            });
         });
     </script>
 </body>
