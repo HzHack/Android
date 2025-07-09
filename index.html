@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اندرويد بلس</title>
+    <title>تطبيقات بلس - سناب، انستا، يوتيوب</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
@@ -20,7 +20,10 @@
             --accent: #fd79a8;
             --dark: #2d3436;
             --light: #f7f7f7;
-            --neon: #00ffd5;
+            --neon: #FFFC00; /* تغيير لون النيون إلى الأصفر ليتناسب مع سناب شات */
+            --instagram: #E1306C; /* لون انستغرام */
+            --youtube: #FF0000; /* لون يوتيوب */
+            --snapchat: #FFFC00; /* لون سناب شات */
         }
         
         body {
@@ -77,7 +80,7 @@
             z-index: 100;
             background: rgba(13, 9, 41, 0.8);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 255, 213, 0.2);
+            border-bottom: 1px solid rgba(255, 252, 0, 0.4); /* تعديل اللون */
         }
         
         .navbar {
@@ -93,7 +96,7 @@
             font-size: 1.8rem;
             font-weight: 900;
             color: var(--neon);
-            text-shadow: 0 0 10px rgba(0, 255, 213, 0.7);
+            text-shadow: 0 0 10px rgba(255, 252, 0, 0.7); /* تعديل اللون */
         }
         
         .logo i {
@@ -165,7 +168,7 @@
             font-weight: 900;
             line-height: 1.2;
             margin-bottom: 20px;
-            background: linear-gradient(90deg, var(--neon), var(--secondary), var(--accent));
+            background: linear-gradient(90deg, var(--neon), var(--instagram), var(--youtube));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -190,7 +193,7 @@
             font-weight: 700;
             font-size: 1.1rem;
             transition: all 0.4s ease;
-            box-shadow: 0 0 15px rgba(0, 255, 213, 0.3);
+            box-shadow: 0 0 15px rgba(255, 252, 0, 0.4); /* تعديل اللون */
             position: relative;
             overflow: hidden;
         }
@@ -198,7 +201,7 @@
         .cta-button:hover {
             background: var(--neon);
             color: var(--dark);
-            box-shadow: 0 0 30px rgba(0, 255, 213, 0.6);
+            box-shadow: 0 0 30px rgba(255, 252, 0, 0.7); /* تعديل اللون */
             transform: translateY(-3px);
         }
         
@@ -257,7 +260,7 @@
             overflow: hidden;
             position: relative;
             transition: transform 0.4s ease;
-            border: 1px solid rgba(0, 255, 213, 0.2);
+            border: 1px solid rgba(255, 252, 0, 0.3); /* تعديل اللون */
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(10px);
         }
@@ -274,7 +277,7 @@
             left: -2px;
             right: -2px;
             bottom: -2px;
-            background: linear-gradient(45deg, var(--neon), var(--secondary), var(--accent), var(--primary));
+            background: linear-gradient(45deg, var(--neon), var(--instagram), var(--youtube), var(--snapchat));
             z-index: -1;
             border-radius: 22px;
             animation: borderAnimation 3s infinite linear;
@@ -291,7 +294,7 @@
         .app-icon i {
             font-size: 6rem;
             color: var(--neon);
-            text-shadow: 0 0 20px rgba(0, 255, 213, 0.7);
+            text-shadow: 0 0 20px rgba(255, 252, 0, 0.8); /* تعديل اللون */
         }
         
         .app-content {
@@ -336,7 +339,7 @@
         
         .app-button:hover {
             background: var(--light);
-            box-shadow: 0 0 20px rgba(0, 255, 213, 0.7);
+            box-shadow: 0 0 20px rgba(255, 252, 0, 0.8); /* تعديل اللون */
         }
         
         /* قسم الميزات */
@@ -359,7 +362,7 @@
             background: rgba(45, 52, 54, 0.3);
             border-radius: 20px;
             transition: all 0.3s ease;
-            border: 1px solid rgba(0, 255, 213, 0.1);
+            border: 1px solid rgba(255, 252, 0, 0.2); /* تعديل اللون */
         }
         
         .feature-card:hover {
@@ -372,7 +375,7 @@
             font-size: 3rem;
             color: var(--neon);
             margin-bottom: 20px;
-            text-shadow: 0 0 15px rgba(0, 255, 213, 0.5);
+            text-shadow: 0 0 15px rgba(255, 252, 0, 0.6); /* تعديل اللون */
         }
         
         .feature-card h3 {
@@ -498,9 +501,9 @@
         }
         
         @keyframes pulse {
-            0% { transform: scale(1); text-shadow: 0 0 10px rgba(0, 255, 213, 0.7); }
-            50% { transform: scale(1.1); text-shadow: 0 0 20px rgba(0, 255, 213, 1); }
-            100% { transform: scale(1); text-shadow: 0 0 10px rgba(0, 255, 213, 0.7); }
+            0% { transform: scale(1); text-shadow: 0 0 10px rgba(255, 252, 0, 0.7); } /* تعديل اللون */
+            50% { transform: scale(1.1); text-shadow: 0 0 20px rgba(255, 252, 0, 1); } /* تعديل اللون */
+            100% { transform: scale(1); text-shadow: 0 0 10px rgba(255, 252, 0, 0.7); } /* تعديل اللون */
         }
         
         @keyframes floatPhone {
@@ -643,7 +646,7 @@
             <nav class="navbar">
                 <div class="logo">
                     <i class="fas fa-rocket"></i>
-                    <span>اندرويد بلس</span>
+                    <span>تطبيقات بلس</span>
                 </div>
                 
                 <button class="menu-toggle" id="menuToggle">
@@ -664,11 +667,11 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1>تطبيقات خارقة لتجربة أندرويد فريدة</h1>
-                <p>اكتشف عالماً من الإمكانيات مع تطبيقاتنا المبتكرة التي صممت لتغير طريقة استخدامك لهاتفك. أداء قوي، تصميم فريد، ووظائف متطورة.</p>
+                <h1>تطبيقات خارقة تجعل جوالك أندروم</h1>
+                <p>اكتشف تطبيقاتنا المميزة اللي بتغير طريقة استخدامك لجوالك. أداء قوي، تصميم فريد، ووظائف ما تتوقعها!</p>
                 <a href="#apps" class="cta-button">اكتشف التطبيقات <i class="fas fa-arrow-down"></i></a>
             </div>
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 800'%3E%3Crect x='50' y='100' width='300' height='600' rx='40' ry='40' fill='%23222' stroke='%2300ffd5' stroke-width='3'/%3E%3Ccircle cx='200' cy='140' r='10' fill='%23333'/%3E%3Crect x='100' y='160' width='200' height='400' fill='%231a1a2e'/%3E%3Crect x='150' y='590' width='100' height='10' rx='5' fill='%2300ffd5'/%3E%3C/svg%3E" alt="هاتف ذكي" class="hero-image">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 800'%3E%3Crect x='50' y='100' width='300' height='600' rx='40' ry='40' fill='%23222' stroke='%23FFFC00' stroke-width='3'/%3E%3Ccircle cx='200' cy='140' r='10' fill='%23333'/%3E%3Crect x='100' y='160' width='200' height='400' fill='%231a1a2e'/%3E%3Crect x='150' y='590' width='100' height='10' rx='5' fill='%23FFFC00'/%3E%3C/svg%3E" alt="هاتف ذكي" class="hero-image">
         </div>
     </section>
     
@@ -678,48 +681,48 @@
             <h2 class="section-title">تطبيقاتنا الخارقة</h2>
             
             <div class="apps-grid">
-                <!-- التطبيق 1 -->
+                <!-- التطبيق 1: سناب شات -->
                 <div class="app-card">
                     <div class="app-icon">
-                        <i class="fas fa-brain"></i>
+                        <i class="fab fa-snapchat-ghost"></i>
                     </div>
                     <div class="app-content">
-                        <h3>الذكاء المتقدم</h3>
-                        <p>تطبيق ذكاء اصطناعي متكامل يحول هاتفك إلى مساعد شخصي خارق. يتعلم من عاداتك ويقدم حلولاً ذكية لحياتك اليومية.</p>
+                        <h3>سناب شات بلس</h3>
+                        <p>نسخة خارقة من سناب شات مع ميزات حصرية مثل الفلاتر الدائمة، التحميل من القصص، وإرسال سنابات غير محدودة بدون علم!</p>
                         <div class="app-stats">
-                            <span><i class="fas fa-download"></i> 500K+ تنزيل</span>
+                            <span><i class="fas fa-download"></i> 800K+ تنزيل</span>
                             <span><i class="fas fa-star"></i> 4.9 تقييم</span>
                         </div>
                         <a href="#" class="app-button">تنزيل التطبيق <i class="fas fa-download"></i></a>
                     </div>
                 </div>
                 
-                <!-- التطبيق 2 -->
+                <!-- التطبيق 2: انستغرام -->
                 <div class="app-card">
                     <div class="app-icon">
-                        <i class="fas fa-lock"></i>
+                        <i class="fab fa-instagram"></i>
                     </div>
                     <div class="app-content">
-                        <h3>الحماية القصوى</h3>
-                        <p>نظام حماية متطور بطبقات أمان متعددة. يحمي بياناتك من الاختراقات ويضمن خصوصية تامة باستخدام تقنيات التشفير الكمي.</p>
+                        <h3>انستغرام برو</h3>
+                        <p>تطبيق انستغرام محسّن مع ميزات متقدمة مثل تحميل الصور والفيديوهات، مشاهدة الستوري بدون علم، وإمكانية إعادة المشاهدة!</p>
                         <div class="app-stats">
-                            <span><i class="fas fa-download"></i> 350K+ تنزيل</span>
+                            <span><i class="fas fa-download"></i> 950K+ تنزيل</span>
                             <span><i class="fas fa-star"></i> 4.8 تقييم</span>
                         </div>
                         <a href="#" class="app-button">تنزيل التطبيق <i class="fas fa-download"></i></a>
                     </div>
                 </div>
                 
-                <!-- التطبيق 3 -->
+                <!-- التطبيق 3: يوتيوب -->
                 <div class="app-card">
                     <div class="app-icon">
-                        <i class="fas fa-bolt"></i>
+                        <i class="fab fa-youtube"></i>
                     </div>
                     <div class="app-content">
-                        <h3>الأداء الخارق</h3>
-                        <p>محسن أداء متكامل يضاعف سرعة هاتفك ويوفر طاقة البطارية. حلول متقدمة لتحويل جهازك إلى آلة خارقة الأداء.</p>
+                        <h3>يوتيوب بريميوم</h3>
+                        <p>استمتع بيوتيوب بدون إعلانات مع إمكانية التحميل، التشغيل في الخلفية، ودقة 4K حتى مع الانترنت الضعيف!</p>
                         <div class="app-stats">
-                            <span><i class="fas fa-download"></i> 700K+ تنزيل</span>
+                            <span><i class="fas fa-download"></i> 1.2M+ تنزيل</span>
                             <span><i class="fas fa-star"></i> 4.7 تقييم</span>
                         </div>
                         <a href="#" class="app-button">تنزيل التطبيق <i class="fas fa-download"></i></a>
@@ -737,10 +740,10 @@
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-infinity"></i>
+                        <i class="fas fa-bolt"></i>
                     </div>
-                    <h3>أداء لا نهائي</h3>
-                    <p>تطبيقاتنا مصممة لتقديم أداء استثنائي حتى على الأجهزة المتوسطة، باستخدام تقنيات محسنة للذاكرة والمعالجة.</p>
+                    <h3>أداء قوي</h3>
+                    <p>تطبيقاتنا مصممة بأحدث التقنيات عشان تقدم لك أداء قوي حتى لو جوالك مو قوي، وبدون ما تبطيء جهازك.</p>
                 </div>
                 
                 <div class="feature-card">
@@ -748,7 +751,7 @@
                         <i class="fas fa-shield-alt"></i>
                     </div>
                     <h3>خصوصية تامة</h3>
-                    <p>نضمن حماية بياناتك بطبقات تشفير متقدمة. لا نشارك بيانات المستخدمين مع أي جهات خارجية.</p>
+                    <p>نضمن خصوصيتك وحماية بياناتك بأقوى التقنيات، وموعدنا نشارك بياناتك مع أحد.</p>
                 </div>
                 
                 <div class="feature-card">
@@ -756,15 +759,15 @@
                         <i class="fas fa-sync-alt"></i>
                     </div>
                     <h3>تحديثات مستمرة</h3>
-                    <p>نقدم تحديثات شهرية بميزات جديدة وتحسينات للأداء. فريقنا يعمل باستمرار لتحسين تجربتك.</p>
+                    <p>تحديثاتنا مستمرة كل شهر بميزات جديدة وتحسينات، وعندنا فريق دايماً شغال عشان تجربتك تكون أحسن.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-magic"></i>
                     </div>
-                    <h3>تصميم ساحر</h3>
-                    <p>واجهات مستخدم متطورة مع تحريك سلس وتصميم عصري يواكب أحدث اتجاهات التصميم العالمية.</p>
+                    <h3>تصميم مدهش</h3>
+                    <p>واجهات تطبيقاتنا سهلة الاستخدام وبتصميم عصري يخلي تجربتك مع التطبيق ممتعة وسلسة.</p>
                 </div>
             </div>
         </div>
@@ -775,8 +778,8 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>عن اندرويد بلس</h3>
-                    <p>نحن فريق من المطورين الشغوفين نبتكر تطبيقات أندرويد خارقة تجمع بين القوة والأداء الفائق مع تصميم فريد خارج عن المألوف.</p>
+                    <h3>عن تطبيقات بلس</h3>
+                    <p>نحن شباب سعوديين شغوفين نطور تطبيقات تجمع بين القوة والأداء الفائق مع تصميم فريد خارج عن المألوف.</p>
                     <div class="social-links">
                         <a href="https://twitter.com/yourusername" class="twitter" target="_blank" title="تويتر">
                             <i class="fab fa-twitter"></i>
@@ -835,7 +838,7 @@
             </div>
             
             <div class="copyright">
-                <p>جميع الحقوق محفوظة © 2025 اندرويد بلس. تصميم وتطوير بكل فخر.</p>
+                <p>جميع الحقوق محفوظة © 2025 تطبيقات بلس. تصميم وتطوير بكل فخر.</p>
             </div>
         </div>
     </footer>
